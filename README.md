@@ -27,5 +27,11 @@ Country: UK, Total Cases: 29474, New Cases: 0, Total Deaths: 2352, New Deaths: 0
 
 ....
 
+#### Technology
+
+[F# Data Library] for data access, in particular the [HTML Type Provider]. This allows us to "screen scrape" a web page and strongly infer the names and data types in a HTML table, for example. These will then appear in the F# IntelliSense with full type-checking.
+
 [Coronavirus]: <https://www.worldometers.info/coronavirus/>
 [Countries]: <https://www.worldometers.info/coronavirus/#countries>
+[F# Data Library]: <https://fsharp.github.io/FSharp.Data/>
+[HTML Type Provider]: <https://fsharp.github.io/FSharp.Data/library/HtmlProvider.html>
