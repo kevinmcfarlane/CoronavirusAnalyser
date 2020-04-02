@@ -10,13 +10,13 @@ let explore() =
     let data = ConfirmedCases.GetSample()
     let tables = data.Tables
 
-    let headers = tables.Main_table_countries_today.Headers 
-    match headers with 
-    | Some x -> printfn "%s, %s, %s, %s, %s" x.[0] x.[1] x.[2] x.[3] x.[4]
-    | None -> printfn ""     
+    // Headers
+    match tables.Main_table_countries_today.Headers with 
+    | Some headers -> printfn "%s, %s, %s, %s, %s" headers.[0] headers.[1] headers.[2] headers.[3] headers.[4]
+    | None -> ()     
 
-    let rows =tables.Main_table_countries_today.Rows
-    rows
+    // Rows
+    tables.Main_table_countries_today.Rows
     |> Array.take 20
     |> Array.map (fun row -> row.``Country, Other``, row.``Total Cases``, row.``New Cases``, row.``Total Deaths``, row.``New Deaths``)
     |> Array.iter (fun (country, totalCases, newCases, totalDeaths, newDeaths) -> 
