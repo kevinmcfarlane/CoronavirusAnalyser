@@ -19,10 +19,15 @@ let printToConsole() =
 
     // Rows
     tables.Main_table_countries_today.Rows
-    |> Array.take 20
+    |> Array.take 21
     |> Array.map (fun row -> row.``Country, Other``, row.``Total Cases``, row.``New Cases``, row.``Total Deaths``, row.``New Deaths``)
     |> Array.iter (fun (country, totalCases, newCases, totalDeaths, newDeaths) -> 
-        printfn "%s, %M, %.0f, %.0f, %.0f" country totalCases (if Double.IsNaN(newCases) then 0.0 else newCases) totalDeaths (if Double.IsNaN(newDeaths) then 0.0 else newDeaths))
+        printfn "%s, %M, %.0f, %.0f, %.0f" 
+            country 
+            totalCases 
+            (if Double.IsNaN(newCases) then 0.0 else newCases) 
+            totalDeaths 
+            (if Double.IsNaN(newDeaths) then 0.0 else newDeaths))
 
 let printToCsv() =
     
@@ -33,21 +38,30 @@ let printToCsv() =
     let tables = data.Tables
 
     // Headers
+    // (tables.Main_table_countries_today.Headers is string [] option, not string [] so we must pattern-match)
     let headers =
         match tables.Main_table_countries_today.Headers with 
         | Some h -> sprintf "%s, %s, %s, %s, %s" (h.[0].Replace(",", " or")) h.[1] h.[2] h.[3] h.[4]
         | None -> ""    
 
-    stream.WriteLine(headers)
+    let extendedHeaders = headers + ", Total Deaths / Total Cases"
+    stream.WriteLine(extendedHeaders)
 
     // Rows
     tables.Main_table_countries_today.Rows
-    |> Array.take 20
+    |> Array.take 21
     |> Array.map (fun row -> row.``Country, Other``, row.``Total Cases``, row.``New Cases``, row.``Total Deaths``, row.``New Deaths``)
     |> Array.iter (fun (country, totalCases, newCases, totalDeaths, newDeaths) -> 
-        stream.WriteLine(sprintf "%s, %M, %.0f, %.0f, %.0f" country totalCases (if Double.IsNaN(newCases) then 0.0 else newCases) totalDeaths (if Double.IsNaN(newDeaths) then 0.0 else newDeaths)))
+        stream.WriteLine(sprintf "%s, %M, %.0f, %.0f, %.0f, %.3f" 
+            country 
+            totalCases 
+            (if Double.IsNaN(newCases) then 0.0 else newCases) 
+            totalDeaths 
+            (if Double.IsNaN(newDeaths) then 0.0 else newDeaths) 
+            (totalDeaths / float totalCases)))
 
 [<EntryPoint>]
 let main argv =
     printToCsv()
-    0 // return an integer exit code
+    printToConsole()
+    0 

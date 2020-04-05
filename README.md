@@ -47,7 +47,15 @@ Iran, 50468, 2875, 3160, 124
 
 UK, 33718, 4244, 2921, 569
 
+....
 
+....
+
+#### Results - Excel output with extra calculated column
+
+Top 20 countries by total cases sorted in descending order by Total Deaths / Total Cases - excluding World
+
+![Sorted output - deaths/cases](Images/excel-output.png)
 
 #### Technology
 
