@@ -2,7 +2,6 @@
 
 Worldometer [Coronavirus] daily statistics. Analysis of the [Countries] table.
 
- - 
 
 #### Results - initial version
 
@@ -31,6 +30,7 @@ Country: UK, Total Cases: 29474, New Cases: 0, Total Deaths: 2352, New Deaths: 0
 
 CSV output of headers and rows.
 
+
 Country - Other, Total Cases, New Cases, Total Deaths, New Deaths
 
 USA, 236072, 21069, 5777, 675
@@ -56,6 +56,7 @@ UK, 33718, 4244, 2921, 569
 Top 20 countries by total cases sorted in descending order by Total Deaths / Total Cases - excluding World
 
 ![Sorted output - deaths/cases](Images/excel-output.png)
+
 
 #### Technology
 
