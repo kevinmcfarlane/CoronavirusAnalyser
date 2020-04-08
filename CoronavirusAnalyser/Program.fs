@@ -5,6 +5,9 @@ open FSharp.Data
 [<Literal>]
 let url = @"https://www.worldometers.info/coronavirus/"
 
+[<Literal>]
+let PercentConverter = 100.0
+
 type ConfirmedCases = HtmlProvider<url>
 
 let printToConsole() =
@@ -48,13 +51,13 @@ let printToCsv() =
 
     let extendedHeaders = headers + ", Total Deaths / Total Cases, Total Recovered / Total Cases, Serious or Critical / Total Cases"
     stream.WriteLine(extendedHeaders)
-
-    // Rows
+    // printfn "escape: %.2f%%" (100.0 * x)
+    2    // Rows
     tables.Main_table_countries_today.Rows
     |> Array.take 21
     |> Array.map (fun row -> row.``Country, Other``, row.``Total Cases``, row.``New Cases``, row.``Total Deaths``, row.``New Deaths``, row.``Total Recovered``, row.``Serious, Critical``)
     |> Array.iter (fun (country, totalCases, newCases, totalDeaths, newDeaths, totalRecovered, seriousCritical) -> 
-        stream.WriteLine(sprintf "%s, %M, %.0f, %.0f, %.0f, %.0f, %.0f, %.3f, %.3f, %.3f" 
+        stream.WriteLine(sprintf "%s, %M, %.0f, %.0f, %.0f, %.0f, %.0f, %.2f%%, %.2f%%, %.2f%%" 
             country 
             totalCases 
             (if Double.IsNaN(newCases) then 0.0 else newCases) 
@@ -62,9 +65,9 @@ let printToCsv() =
             (if Double.IsNaN(newDeaths) then 0.0 else newDeaths) 
             totalRecovered
             seriousCritical
-            (totalDeaths / float totalCases)
-            (totalRecovered / float totalCases)
-            (seriousCritical / float totalCases)
+            (PercentConverter * (totalDeaths / float totalCases))
+            (PercentConverter * (totalRecovered / float totalCases))
+            (PercentConverter * (seriousCritical / float totalCases))
             ))
 
 [<EntryPoint>]
