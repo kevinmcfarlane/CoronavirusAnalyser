@@ -51,8 +51,8 @@ let printToCsv() =
 
     let extendedHeaders = headers + ", Total Deaths / Total Cases, Total Recovered / Total Cases, Serious or Critical / Total Cases"
     stream.WriteLine(extendedHeaders)
-    // printfn "escape: %.2f%%" (100.0 * x)
-    2    // Rows
+
+    // Rows
     tables.Main_table_countries_today.Rows
     |> Array.take 21
     |> Array.map (fun row -> row.``Country, Other``, row.``Total Cases``, row.``New Cases``, row.``Total Deaths``, row.``New Deaths``, row.``Total Recovered``, row.``Serious, Critical``)
