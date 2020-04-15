@@ -13,7 +13,7 @@ type ConfirmedCases = HtmlProvider<url>
 let printToCsv() =
 
     let getDouble v =
-        (if Double.IsNaN(v) then 0.0 else v) 
+        if Double.IsNaN(v) then 0.0 else v
     
     let outputPath = Path.Combine(AppContext.BaseDirectory, "output.csv")
     use stream = new StreamWriter(outputPath)
